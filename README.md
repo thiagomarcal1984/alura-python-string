@@ -41,3 +41,26 @@ print('URL Base: ', url_base)
 url_parametros = url[20:36]
 print('URL Parâmetros: ', url_parametros)
 ```
+# O método find()
+O método `find('string_procurada')` de objetos string retorna a posição da string procurada.
+
+O fatiamento da string pode:
+1. omitir o primeiro parâmetro (ou seja, inclui o primeiro caracter da string: `'aeiou'[:3]` retorna `aei`);
+2. omitir o segundo parâmetro (ou seja, inclui o último caracter da string: `'aeiou'[3:]` retorna `ou`);
+3. omitir os dois parâmetros de fatiamento, que resulta na string completa (`'aeiou'[:]` retorna `'aeiou'`).
+
+Finalmente, os parâmetros do fatiamento podem conter uma variável.
+
+Código do arquivo `main.py`:
+```python
+url = 'https://bytebank.com/cambio?moedaOrigem=real'
+print('URL: ', url)
+
+indice_interrogacao = url.find('?')
+
+url_base = url[: indice_interrogacao]
+print('URL Base: ', url_base)
+
+url_parametros = url[indice_interrogacao+1 : ]
+print('URL Parâmetros: ', url_parametros)
+```
