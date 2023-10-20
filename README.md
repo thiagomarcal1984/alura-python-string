@@ -64,3 +64,15 @@ print('URL Base: ', url_base)
 url_parametros = url[indice_interrogacao+1 : ]
 print('URL Parâmetros: ', url_parametros)
 ```
+# Para saber mais: Documentação - método find
+O método `find` tem 3 parâmetros posicionais (os dois últimos opcionais):
+
+1. substring: a string procurada (`'abracadabra'.find('b')` retorna `1`);
+2. start: o índice a partir do qual a substring será procurada (`'abracadabra'.find('b', 5)` retorna `1`);
+3. end: o índice até o qual a substring será procurada (`'abracadabra'.find('b', 2, 7)` retorna `-1`, ou seja, não encontra a string `'b'` depois da posição 2 e antes da posição 7).
+
+> Não use a sintaxe de parâmetros chave/valor:
+>```python
+>'abracadabra'.find(sub='b', start=2, end=7)
+>```
+> Essa sintaxe não funciona.
