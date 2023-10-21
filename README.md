@@ -268,3 +268,32 @@ if busca:
     cep = busca.group()
     print(cep)
 ```
+ # Quantificadores e intervalos
+Intervalos são representados por um valor que representa o início de um intervalo, seguido de um traço, seguido do valor que representa o fim do intervalo:
+```python
+# Representa qualquer letra minúscula de a até z.
+padrao = re.compile("[a-z]") 
+```
+Quantificadores representam o número de repetições que procuramos num padrão. Eles são representados por chaves (`{}`). Dentro das chaves podemos inserir um único número (para estabelecer um número fixo de repetições) ou dois números separados por vírgula (para estabelecer o limite mínimo e máximo de repetições do padrão).
+```python
+# Representa um CPF sem pontos, com hifen opcional.
+# Perceba que o traço pode se repetir zero ou uma vez.
+padrao = re.compile("[0-9]{9}-{0,1}[0-9]{2}") 
+```
+
+Modificação do conteúdo do arquivo `extrator_cep.py`:
+```python
+endereco =  "Rua das Flores, 72"\
+            ", apartamento 1002, "\
+            "Laranjeiras, Rio de Janeiro - RJ, 23440-120"
+
+import re # Regular Expression == RegEx
+
+padrao = re.compile(
+    "[0123456789]{5}-{0,1}[0-9]{3}"
+)
+busca = padrao.search(endereco) # Match. 
+if busca:
+    cep = busca.group()
+    print(cep)
+```
