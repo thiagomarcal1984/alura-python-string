@@ -375,3 +375,38 @@ print(extrator_url)
 # Parâmetros: moedaDestino=dolar&quantidade=100&moedaOrigem=real
 # URL Base: bytebank.com/cambio
 ```
+
+# Igualdade e identidade
+Quando usamos o operador `==`, implicitamente estamos invocando o método mágico `__eq__(self, other)`. Por padrão, esse método compara os endereços de memória dos dois objetos. O endereço de memória dos objetos pode ser recuperado por meio do método `id(objeto)`.
+
+O endereço de memória dos objetos é diferente dos seus respectivos valores. Para confirmar se os endereços de memória são iguais (e consequentemente se um objeto é exatamente igual a outro), usamos o operador `is`.
+
+```python
+>>> id(1)
+140731001197352
+>>> id(True) # Perceba que o endereço de True é diferente de 1.
+140730999675752
+>>> 1 == True # Compara os valores de 1 e True.
+True
+>>> 1 is True # Compara a identidade/endereços de memória.
+<stdin>:1: SyntaxWarning: "is" with a literal. Did you mean "=="?
+False
+>>> True is 1 # Compara a identidade/endereços de memória.
+<stdin>:1: SyntaxWarning: "is" with a literal. Did you mean "=="?
+False
+>>>
+```
+
+Mudanças no código do arquivo `extrator_url.py`:
+```python
+class ExtratorURL:
+    # Resto do código
+    def __eq__(self, other):
+        return self.__url == other.__url
+
+url = 'bytebank.com/cambio?moedaDestino=dolar&quantidade=100&moedaOrigem=real'
+extrator_url = ExtratorURL(url)
+extrator_url2 = ExtratorURL(url)
+print('Id1.: ', id(extrator_url), '\n\rId2.: ', id(extrator_url2))
+print(extrator_url == extrator_url2) # Retorna True, a URL é igual.
+```
