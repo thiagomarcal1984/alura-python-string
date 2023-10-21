@@ -297,3 +297,42 @@ if busca:
     cep = busca.group()
     print(cep)
 ```
+# Validando nossa URL com RegEx
+Os parênteses em expressões regulares separam grupos de padrões. Sobre esses grupos aplicamos os quantificadores. Os parênteses não aparecem no resultado da busca do padrão (exceto se o parênteses for escapado).
+
+> Os métodos `search` e `match` de uma RegEx são diferentes:
+> Em `search`, o padrão não precisa casar com o início da string. 
+> Em `match`, o padrão deve casar com o início da string. 
+
+Código do arquivo `extrator_url.py`:
+```python
+import re
+
+class ExtratorURL:
+    # Resto do código
+    def valida_url(self):
+        if not self.__url: # bool("") é igual a False.
+            raise ValueError("A URL está vazia")
+        padrao_url = re.compile('(http(s)?://)?(www\.)?bytebank\.com(\.br)?/cambio')
+        # O padrão deve casar com o início da string, 
+        # daí o match ao invés de search.
+        match = padrao_url.match(self.__url) 
+
+        if not match:
+            raise ValueError("A URL não é válida.")
+
+    # Resto do código
+# O código vai funcionar, pois casa com o padrão.
+extrator_url = ExtratorURL('bytebank.com/cambio?moedaDestino=dolar&quantidade=100&moedaOrigem=real')
+
+# O código vai funcionar, porque apesar dos espaços,
+# o método strip vai retirá-los e a URL fica igual à 
+# da linha de cima.
+extrator_url = ExtratorURL('      bytebank.com/cambio?moedaDestino=dolar&quantidade=100&moedaOrigem=real')
+
+# O código abaixo não vai funcionar, porque o padrão 
+# começa com "bytebank...", e a string passada para o 
+# construtor começa com outra letra. Se o método 
+# "search" tivesse sido usado ao invés de "match", funcionaria.
+extrator_url = ExtratorURL('a      bytebank.com/cambio?moedaDestino=dolar&quantidade=100&moedaOrigem=real')
+```
