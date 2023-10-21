@@ -4,7 +4,10 @@ class ExtratorURL:
         self.valida_url()
 
     def __sanitiza_url(self, url):
-        return url.strip()
+        if type(url) == str: # O método strip() só existe em strings.
+            return url.strip()
+        else:
+            return ""
 
     def get_valor_parametro(self, parametro_busca):
         indice_parametro = self.get_url_parametros().find(parametro_busca)
@@ -18,7 +21,7 @@ class ExtratorURL:
         return valor
 
     def valida_url(self):
-        if self.__url == "":
+        if not self.__url: # bool("") é igual a False.
             raise ValueError("A URL está vazia")
 
     def get_url_base(self):

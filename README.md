@@ -208,3 +208,32 @@ extrator_url = ExtratorURL('https://bytebank.com/cambio?moedaDestino=dolar&quant
 valor_quantidade = extrator_url.get_valor_parametro('quantidade')
 print(valor_quantidade)
 ```
+# None vs empty, e o if do Python
+O valor `None` é um objeto do tipo `NoneType`. E esse tipo não tem o método `strip()`, que remove espaços em branco das extremidades de uma string.
+
+No entanto, se você usar um `NoneType` ou uma string vazia dentro de um `if`, elas serão implicitamente convertidas para `False`:
+``` python
+>>> print(bool(""))
+False
+>>> print(bool(None))
+False
+>>> print(bool("Qualquer coisa")) 
+True
+```
+
+Alterações no código do arquivo `extrator_url.py`:
+```python
+class ExtratorURL:
+    # Resto do código
+    def __sanitiza_url(self, url):
+        if type(url) == str: # O método strip() só existe em strings.
+            return url.strip()
+        else:
+            return ""
+
+    # Resto do código
+    def valida_url(self):
+        if not self.__url: # bool("") é igual a False.
+            raise ValueError("A URL está vazia")
+
+```
