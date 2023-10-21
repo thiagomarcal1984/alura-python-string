@@ -146,3 +146,24 @@ else: # Não encontrou o ampersand.
     
 print(valor)
 ```
+
+# Validando a URL
+O foco agora é fazer o tratamento de URLs vazias. Duas coisas:
+
+1. Há caracteres invisíveis (tabulação, espaços, quebras de linha, retorno de carro etc.) que precisam ser suprimidos das extremidas da string. Isso é possível graças ao método `strip` (e suas variantes `lstrip` e `rstrip`). Outra alternativa é usando o comando `replace(string_procurada, string_substituta)`.
+2. Caso a string esteja vazia, uma exceção/erro precisa ser exibida. Para isso, usamos o comando `raise` seguido do tipo de exceção/erro que exibiremos.
+
+Código do arquivo `main.py`:
+```python
+url = "\t  \n\r \t"
+
+# Sanitização da URL
+url = url.lstrip() # Strip do lado esquerdo.
+url = url.rstrip() # Strip do lado direito.
+url = url.strip() # Strip dos dois lados.
+
+# Validação da URL
+if url == "":
+    raise ValueError("A URL está vazia")
+# Resto do código
+```
