@@ -336,7 +336,7 @@ extrator_url = ExtratorURL('      bytebank.com/cambio?moedaDestino=dolar&quantid
 # "search" tivesse sido usado ao invés de "match", funcionaria.
 extrator_url = ExtratorURL('a      bytebank.com/cambio?moedaDestino=dolar&quantidade=100&moedaOrigem=real')
 ```
-# Introdução: o método __len__()
+# Introdução: o método `__len__()`
 O Python tem os chamados métodos especiais, métodos mágicos ou dunder (double underscore) methods. São métodos chamados implicitamente pelo Python ao usar certos operadores e funções (por exemplo, `len()`, `in` etc.).
 
 Vamos implementar o método `__len__()` na classe ExtratorURL, para sabermos o número de caracteres na URL que o extrator armazena:
@@ -350,4 +350,28 @@ class ExtratorURL:
 extrator_url = ExtratorURL('bytebank.com/cambio?moedaDestino=dolar&quantidade=100&moedaOrigem=real')
 print("O tamanho da URL é:", len(extrator_url))
 # Imprime "O tamanho da URL é: 70".
+```
+# O método `__str__()`
+Sempre que o método `print(obj)` é executado, ele tenta executar o método `__str__()` desse objeto.
+
+Código do arquivo `extrator_url.py` modificado:
+```python
+class ExtratorURL:
+    # Resto do código
+    def __str__(self):
+        return "".join([
+            "URL: ", 
+            self.__url,
+            "\nParâmetros: ",
+            self.get_url_parametros(),
+            "\nURL Base: ", 
+            self.get_url_base()
+        ])
+
+extrator_url = ExtratorURL('bytebank.com/cambio?moedaDestino=dolar&quantidade=100&moedaOrigem=real')
+print(extrator_url)
+# Saída: 
+# URL: bytebank.com/cambio?moedaDestino=dolar&quantidade=100&moedaOrigem=real  
+# Parâmetros: moedaDestino=dolar&quantidade=100&moedaOrigem=real
+# URL Base: bytebank.com/cambio
 ```
