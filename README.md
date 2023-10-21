@@ -237,3 +237,34 @@ class ExtratorURL:
             raise ValueError("A URL está vazia")
 
 ```
+# O que são expressões regulares
+3 Passos nas expressões regulares:
+
+1. Compilar o padrão da RegEx;
+2. Buscar o padrão em uma string;
+3. Recuperar do resultado da busca o valor que corresponde ao padrão (match).
+
+O código do arquivo `extrator_cep.py` exemplifica como é o processo de expressões regulares:
+```python
+endereco =  "Rua das Flores, 72"\
+            ", apartamento 1002, "\
+            "Laranjeiras, Rio de Janeiro - RJ, 23440-120"
+
+import re # Regular Expression == RegEx
+
+padrao = re.compile(
+    "[0123456789]"\
+    "[0123456789]"\
+    "[0123456789]"\
+    "[0123456789]"\
+    "[0123456789]"\
+    "-?"\
+    "[0123456789]"\
+    "[0123456789]"\
+    "[0123456789]"
+)
+busca = padrao.search(endereco) # Match. 
+if busca:
+    cep = busca.group()
+    print(cep)
+```
